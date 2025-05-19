@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.records.mapper.BirdRecordsMapper">
+    
+    <resultMap type="BirdRecords" id="BirdRecordsResult">
+        <result property="id"    column="id"    />
+        <result property="birdSpecies"    column="bird_species"    />
+        <result property="variety"    column="variety"    />
+        <result property="legBandNumber"    column="leg_band_number"    />
+        <result property="gender"    column="gender"    />
+        <result property="identificationDate"    column="identification_date"    />
+        <result property="apvResult"    column="apv_result"    />
+        <result property="pbfdResult"    column="pbfd_result"    />
+        <result property="searchNumb"    column="search_numb"    />
+        <result property="senderName"    column="sender_name"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectBirdRecordsVo">
+        select id, bird_species, variety, leg_band_number, gender, identification_date, apv_result, pbfd_result, search_numb, sender_name, del_flag, create_by, create_time, update_by, update_time from bird_records
+    </sql>
+
+    <select id="selectBirdRecordsList" parameterType="BirdRecords" resultMap="BirdRecordsResult">
+        <include refid="selectBirdRecordsVo"/>
+        <where>  
+            <if test="birdSpecies != null  and birdSpecies != ''"> and bird_species = #{birdSpecies}</if>
+            <if test="variety != null  and variety != ''"> and variety = #{variety}</if>
+            <if test="legBandNumber != null  and legBandNumber != ''"> and leg_band_number = #{legBandNumber}</if>
+            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+            <if test="identificationDate != null "> and identification_date = #{identificationDate}</if>
+            <if test="apvResult != null  and apvResult != ''"> and apv_result = #{apvResult}</if>
+            <if test="pbfdResult != null  and pbfdResult != ''"> and pbfd_result = #{pbfdResult}</if>
+            <if test="searchNumb != null  and searchNumb != ''"> and search_numb = #{searchNumb}</if>
+            <if test="senderName != null  and senderName != ''"> and sender_name like concat('%', #{senderName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectBirdRecordsById" parameterType="Long" resultMap="BirdRecordsResult">
+        <include refid="selectBirdRecordsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertBirdRecords" parameterType="BirdRecords" useGeneratedKeys="true" keyProperty="id">
+        insert into bird_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="birdSpecies != null and birdSpecies != ''">bird_species,</if>
+            <if test="variety != null and variety != ''">variety,</if>
+            <if test="legBandNumber != null and legBandNumber != ''">leg_band_number,</if>
+            <if test="gender != null and gender != ''">gender,</if>
+            <if test="identificationDate != null">identification_date,</if>
+            <if test="apvResult != null and apvResult != ''">apv_result,</if>
+            <if test="pbfdResult != null and pbfdResult != ''">pbfd_result,</if>
+            <if test="searchNumb != null and searchNumb != ''">search_numb,</if>
+            <if test="senderName != null and senderName != ''">sender_name,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="birdSpecies != null and birdSpecies != ''">#{birdSpecies},</if>
+            <if test="variety != null and variety != ''">#{variety},</if>
+            <if test="legBandNumber != null and legBandNumber != ''">#{legBandNumber},</if>
+            <if test="gender != null and gender != ''">#{gender},</if>
+            <if test="identificationDate != null">#{identificationDate},</if>
+            <if test="apvResult != null and apvResult != ''">#{apvResult},</if>
+            <if test="pbfdResult != null and pbfdResult != ''">#{pbfdResult},</if>
+            <if test="searchNumb != null and searchNumb != ''">#{searchNumb},</if>
+            <if test="senderName != null and senderName != ''">#{senderName},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBirdRecords" parameterType="BirdRecords">
+        update bird_records
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="birdSpecies != null and birdSpecies != ''">bird_species = #{birdSpecies},</if>
+            <if test="variety != null and variety != ''">variety = #{variety},</if>
+            <if test="legBandNumber != null and legBandNumber != ''">leg_band_number = #{legBandNumber},</if>
+            <if test="gender != null and gender != ''">gender = #{gender},</if>
+            <if test="identificationDate != null">identification_date = #{identificationDate},</if>
+            <if test="apvResult != null and apvResult != ''">apv_result = #{apvResult},</if>
+            <if test="pbfdResult != null and pbfdResult != ''">pbfd_result = #{pbfdResult},</if>
+            <if test="searchNumb != null and searchNumb != ''">search_numb = #{searchNumb},</if>
+            <if test="senderName != null and senderName != ''">sender_name = #{senderName},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBirdRecordsById" parameterType="Long">
+        delete from bird_records where id = #{id}
+    </delete>
+
+    <delete id="deleteBirdRecordsByIds" parameterType="String">
+        delete from bird_records where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="batchInsertBirdRecords" parameterType="java.util.List">
+        insert into bird_records
+        (bird_species, variety, leg_band_number, gender, identification_date,
+        apv_result, pbfd_result, search_numb, sender_name, del_flag,
+        create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.birdSpecies}, #{item.variety}, #{item.legBandNumber}, #{item.gender}, #{item.identificationDate},
+            #{item.apvResult}, #{item.pbfdResult}, #{item.searchNumb}, #{item.senderName}, #{item.delFlag},
+            #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+</mapper>
